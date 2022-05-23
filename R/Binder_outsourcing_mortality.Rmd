@@ -1,0 +1,238 @@
+---
+title: "Binder_CCG_outsourcing"
+output: html_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE, 
+                      dev="cairo_pdf", fig.width=7, fig.height=5, fig.pos = "h", out.extra = "")
+```
+
+\newpage
+
+# Introduction
+
+## Background
+In 2012, the Health and Social Care Act intensified pressures on the NHS to outsource service provision from state-owned provides to private for-profit providers, but in so doing created concerns that this would undermine the quality of care. England’s NHS has long mixed private and public provision. Since 1991, it’s two-tier system, which consists of a private health sector serving a minority of the population and a National Health Service serving the majority, was blended with the introduction of an internal market for the NHS , constituting of NHS purchasing bodies which contract services from a mixed pool of NHS-owned, for-profit, and non-profit providers, all of which serve NHS patients. Some services have remained predominantly delivered by NHS providers, but some services have been largely shifted towards a ‘mixed market’ or mostly by independent providers. Facilities management and some ancillary services were quick to be ‘contracted-out’ to the private sector in the 80s and 90s – impacting the quality of these services [1,2]. Whereas mid-2000s reforms centred patient choice by introducing a ‘consumer market’ which increased the use of private finance and independent sector treatment centres [3]. 
+
+The 2012 reforms deepened competition regulation outlawing anti-competitive behaviour by commissioners with the aim of opening up the market so that more NHS services could be delivered by non-NHS providers,[4,5] this made it virtually compulsory to outsource, or at least impossible to ensure contracts remained in the NHS [6,7]. The specifics of these reforms are outlined in secondary legislation, ’the Procurement, Patient Choice and Competition Regulations No. 2 (2013)’, which directly ruled against any commissioning priority based on ownership status - meaning NHS providers could not be preferred to for-profit organisations by legal right. 
+
+The ensuing period of for-profit outsourcing from England’s NHS has coincided with a worsening trend in some indicators of healthcare quality. Treatable mortality rates have stagnated since 2013, breaking from a trend of decline over the previous 10 years and leaving England with mortality rates which compare poorly to other high-income countries [8]. Similarly, increases in waiting times and decreased patient satisfaction suggest the service is failing to maintain standards of care [9]. While austerity measures have almost certainly played a role, we examine whether outsourcing to for-profit companies has contributed to this increase in treatable mortality [10, 11]. 
+
+This rise in treatable mortality potentially confirms the worries of those who were sceptical that outsourcing to independent healthcare providers would incentivise providers to introduce innovative practices and improve overall performance [12]. This has occurred in other countries, such as when mortality rates rose in Italy following a period of privatisation, and in other parts of the healthcare service, such as when cleaning services were outsourced in the NHS [13, 14].
+
+Why might for-profit outsourcing be related with aggregate treatable mortality? One theory is that cost-cutting behaviours in for-profit providers means that having higher shares of for-profit providers will lead to worse healthcare quality and worse health outcomes [15]. Another key dynamic is the different case-mixes often evidenced in for-profit and public providers – a result of ‘cream-skimming’ and concentrating the most complicated cases in public providers which have no extra staff or funding to compensate [16]. 
+
+But the evidence on the impact of ‘creeping privatisation’ in general and in England’s NHS specifically remains uncertain. In general, these findings are often inconclusive in that they do not analyse the aggregate effect of outsourcing on service-wide performance [17, 18]. Moreover, such comparisons between for-profit and not-for profit providers are often inappropriate because the case-mixes of private and public services are quite different. 
+The 2012 reorganisation created new bodies for NHS health-procurement: Clinical Commissioning Groups (CCGs), these replaced the old Primary Care Trusts with responsibility for public health services transferred to LA responsibility. CCGs were also individually required to publish their expenditure data which produced discrepancies in the location and availability of commissioning expenditure which has made the evaluation of outsourcing previously unfeasible.
+
+In this paper, we examine the impact on treatable mortality of increased outsourcing to private for-profit providers from England’s CCGs during the period immediately following the implementation of the 2012 Health and Social Care Act. To do this, we draw on an entirely novel data set which brings together every reported financial transaction between CCGs and private healthcare provides across 173 CCGs. This data allows us to conduct, to our knowledge, the first empirical evaluation of one of the most controversial reforms in England’s recent history. 
+
+# Methods 
+
+The biggest challenge preventing evaluation of outsourcing from England’s NHS until now has been the lack of a harmonized data resource suitable for analysis. We utilize an entirely novel database compiling parse-able procurement expenditures between 2013 and 2020 (n = 645,674, value > £25,000, total value = £204.1bn). This allowed us to analyse the impacts of for-profit outsourcing in unprecedented detail, conducting the first robust empirical assessment of for-profit outsourcing from the NHS following the 2012 Health and Social Care Act. 
+
+## Data Collection 
+
+Procurement expenditures were collected using web-scraping tools sourced from each CCG’s website. In total 12,709 data files containing CCG expenditures were downloaded, parsed and cleaned. The names of suppliers in these files were then matched to names in the Companies House Register, Central Register of Charities and NHS Digital using algorithmic reconciliation of the names of suppliers. Full detail of the curation process along with access to the underlying raw data is available from Rahal and Mohan (2022) [19]. The method builds on recent progress to scrape, parse and merge disaggregated public payments datasets making them accessible data resources with many applications in research and policy [20, 21]. 
+
+The response variable used in this research is our measure for healthcare quality, ‘treatable mortality’. This is defined as: "deaths that can be mainly avoided through timely and effective healthcare interventions, including secondary prevention and treatment" [22].
+
+According to the ONS: “Treatable mortality measures the effectiveness of timely healthcare interventions, including secondary prevention and treatment” [22]. This measure is an age-standardised rate of mortality per 100,000 population for specific causes of death – a full list of causes considered ‘treatable’ can be found in the supplementary material (supplementary material, S.24, p.32). However, CCGs represent GP patients through membership – rather than representing a geographic population. Consequently, this measure is an approximate measure of population outcomes in the same area rather than precise outcomes for patients using CCG patients. 
+
+The explanatory variable of interest is a measure of ‘outsourcing’ which can be defined as: ‘Commissioning expenditure which is received by for-profit companies as a percent of total expenditure’. This value excludes expenditure received by private non-profit organisations - all those registered to the Central register of Charities - as we are specifically interested in the aggregate effects of outsourcing to providers which have profit-maximisation incentives. 
+
+Data was collected on all live English CCGs as of 2019. Of the full 191 sample, 173 provided at least some machine-readable data between 2013 and 2020, although most of those have years missing due to mergers or missing periods in data publication (see supplementary material S.21, pp.28-30 for full description of missing data, S.22, p.30 for a table listing all study variables and summary statistics, S.23, pp.30-32 for full locations of the data as well as a discussion of the data limitations).
+
+## Statistical Analysis 
+
+We ran fixed effects and first differences regression models on the association between outsourcing and treatable mortality, these models will control for all time invariant confounders at the regional level. We also ran our fixed effects model using covariate-balancing with propensity scores based on treatable mortality rates at the beginning of the time-series and the total number of General Practitioners in each CCG. Covariate balancing is an advanced matching method which can weight values to balance the model, accounting for differences in observations according to their value of a continuous treatment variable, in this case for-profit outsourcing[23]. These analyses are all reported using cluster-robust standard errors with small-n adjustments[24]. Finally, we conducted a multi-level random intercepts model, clustering local authority mortality rates within their geographically overlapping CCGs allowing the intercept to vary for each cluster to see whether CCG outsourcing explains mortality rates in their relative Local Authorities. 
+
+We also conduct analysis with two alternative response variables, raw numbers of treatable deaths and ‘preventable mortality’. We use the average marginal effects from the former to predict how many extra deaths are attributable to increases in outsourcing since 2013 and plot a trend line of mortality were outsourcing to have remained constant since 2014. To check whether our results are finding a relationship between outsourcing and some alternative cause of health outcomes, such as changes in social determinants of health, we also run our regressions on ‘preventable mortality’- mortality due to causes which we would expect public health interventions to prevent and not necessarily treatable by the primary, acute or community health services funded by the CCGs (table S.9, p.13 in supplementary material). 
+
+## Sensitivity Analysis 
+
+Our analysis is run on novel data which has been produced using web scraping and algorithmic matching of contracts published in nonuniform formats. Despite multiple manual data verification checks, it is probable that a small amount of error exists in our outsourcing observations. To check whether potential error in the contract data influences our inferences, we synthetically replicate the effect of error on our findings. By running the regression results 50,000 times, each time multiplying the outsourcing values by random numbers we simulate how random error may impact the study’s findings. 
+
+To account for potential bias in the main result from the choice of covariates in the model, we present a specification curve in the supplementary materials which is combined with the random error loops (figure S.11.-S.12, pp.16-17). Finally, we sequentially dropped each CCG from our fixed effects model to test whether any individual CCG is driving a substantial amount of the average effect size (supplementary material, S.10, pp.14-15).
+The funder had no influence on data collection, analysis, interpretation, writing of the manuscript and the decision to submit.
+
+
+# Results
+
+It is openly debated as to whether the outsourcing of NHS contracts to private sector providers has increased since the introduction of the 2012 Health and Social Care Act, with many claiming that there is not enough granular data to know the changes in outsourcing[25]. We find statistically significant increases in for-profit outsourcing between 2013 and 2020 (see supplementary material s.14.1, p.20). 
+
+Figure 1 displays the changes in outsourcing since the beginning of our data in April 2013. Panel A uses a 365-day rolling average of total commissioning expenditure that is received by for-profit companies. It shows that overall levels of outsourcing to for-profit providers has consistently increased since 2013, rising to over 6% of total commissioner spend in England by 2020 (£323m/£4,999m for the first three months of 2020). It also shows that the majority of this outsourcing is received by healthcare companies, as defined by businesses with standard industrial classification divisions of ’human health activities’[26].
+
+
+Panel B in Figure 1 explores these classifications further, showing the percentage increase for the ten most highly procured industries. Relative to their outsourcing between 2013-14, the largest increases are seen in spending on business support and IT support, with consistent increases in spend on healthcare businesses, social work, and transport companies. Panel C shows that the level of for-profit outsourcing can vary considerably by commissioner. Compare, for instance, East Berkshire CCG with Nottingham City CCG - both spending a total of £2.3bn on services between 2013 and 2020. East Berkshire spends around 2% on private companies - which is a total of £46m worth of outsourced contracts, however, Nottingham City, with its heavy use of the CityCare partnership, outsources over 20%, aggregating to over £450m. Counter to some claims, outsourcing from England’s NHS commissioners to for-profit companies has steadily increased since 2013, with a total of £11.5bn worth of outsourced contracts received by for-profits between 2013-2020.
+
+
+```{r, echo=FALSE,out.width="95%",results='hide' ,fig.height=7,fig.pos="H", message=FALSE, warning=FALSE, prompt=FALSE, cache=FALSE}
+
+
+#download data
+myDataCCG <- Download_CCG_payments()
+
+MyAnnualDataCCG <- Create_Annual_CCG_dataset(myDataCCG = myDataCCG)
+
+Create_figure_1(myDataCCG)
+
+```
+
+## Figure 1: Levels of CCG outsourcing to for-profit organisations. Panel A reports the rolling percent of total spend on healthcare and other for-profits. Panel B shows the percentage change in the percent of total spend received by companies in different industrial sectors - based at zero for each sector’s 2013-14 levels. Panel C shows total for-profit outsourcing over the entire time series for each CCG. Panel D represents the levels of for-profit outsourcing across all CCGs each month
+
+Table 1 displays the main results from our statistical analysis assessing the relationship between outsourcing and mortality rates. Table 1 displays the results from a linear, two-way, fixed effects model, a first-differences model, two linear two-way fixed effects models with covariate balancing for the number of active GPs (1), and for treatable mortality rates in 2013 (2), and a multi-level model effects model regressing CCG outsourcing against Local Authority treatable mortality rates. The response variable is a log transformation of treatable mortality rates, and all models control for demographic characteristics (see supplementary material S.1, p.3 for full models).
+
+We find in the fixed effects model that: an annual increase of one percentage point of outsourcing to the private sector is associated with an annual increase in treatable mortality of 0.38% or 0.29 deaths per 100,000 population (95% CI 0·22% to 0·55%; p= 0.0016) in the following year (See Supplementary Material, S.3, p.5 for model without log-transformed mortality rates calculating absolute effect size). In each model we find comparable effect sizes with statistically significant, positive associations between increases in outsourcing and increases in treatable mortality in the following year.
+
+In table 1, the covariate-balancing models use non-parametric method with propensity scores[23]. This weights the fixed effects model based on the number of active GPs (1) and treatable mortality rates in 2013 (2). The reason for running this analysis is to balance our model for the ‘amount of health services’ and the starting levels of the quality of healthcare services relatively.  Results are robust to model specification, including full matching, choice of covariates and removing any individual CCG from the data (see supplementary material, S.10.,S.11.,S.13, pp.14-20). 
+
+
+
+```{r, echo=FALSE,out.width="95%", fig.pos="H"}
+
+table1 <- Create_table_1(MyAnnualDataCCG) 
+
+table1 %>%  kable_styling(latex_options=c("scale_down", "HOLD_position"))
+
+
+```
+##Table 1: Outsourcing and treatable mortality.
+
+Since 2013, the annual numbers of treatable deaths in England has increased, breaking the trend of decreasing mortality for the previous ten years. To calculate how much the increase in deaths is explained by outsourcing, we conducted a fixed effects regression on the absolute number of treatable deaths with the total spend on the private sector as the explanatory variable (Supplementary Material, S.7, p.11). We find statistically significant positive associations: an additional £million spent on for-profit companies corresponds with average increases of 0.32 deaths for CCGs in the following year (p=0.0123, 95% CI = 0.07-0.57). Between 2014 and 2019 there were total yearly increases of £927m spent on for-profit providers. Using the changes in for-profit spend and observed changes in treatable deaths for each CCG, we calculate that 557 additional deaths (95% CI = 153-961) can be attributed to changes in private-sector outsourcing. 
+
+Figure 2 displays the changes in total treatable deaths since 2008. For the 83 CCGs which we have 5 years of consistent data, we can plot the observed total deaths before and after the introduction of the healthcare reforms in April 2013 and an expected trend had there been no change in outsourcing from 2014. Figure 2 shows that a considerable fraction of the increases in overall treatable mortality since 2013 can be attributed to the outsourcing of services to the private sector. 
+
+We conduct two analyses to test whether healthcare quality is determining this relationship. Firstly, we assess which types of outsourcing are associated with increases in mortality. We find that outsourcing to for-profit healthcare companies is the only type of outsourcing associated with increasing mortality suggesting that our results may be explained by the quality of service delivered by these companies (Supplementary Material S.4, pp.6-8). Importantly, we also conducted our analysis changing the response variable from treatable mortality to ’preventable mortality’ (Supplementary Material S.9, p.13). Preventable mortality are deaths that can be mainly avoided through effective public health interventions - not medical interventions - and should therefore be less related to quality of healthcare services. 
+
+We find no statistically significant association between outsourcing and preventable mortality rates. Therefore, we can be more confident that our observed relationship between outsourcing and treatable mortality is not a product of general health outcomes in the population but is more directly associated the quality of healthcare services. 
+
+```{r, echo=FALSE,out.width="95%", fig.pos="H" }
+
+Create_figure_2(MyAnnualDataCCG)
+
+```
+
+## Figure 2: Treatable deaths since 2008. Dashed grey line represents expected number of deaths if there had been no change to outsourcing since 2014. The expected trend line is constructed by subtracting the calculated additional deaths attributed to outsourcing for each CCG each year from the previous years’ synthetic death count adding observed changes of the numbers of deaths. Data trimmed to 2018 to maintain as many CCGs as possible as they need full observations of all variables for each year. Version up to 2019 available in supplementary material (S.8, p.12)
+
+Figure 3 displays a sensitivity check to account for any potential error in the contract data. To be confident that our main finding is robust, we tested whether random error in the data would vary the finding substantially. We ran the linear fixed-effects model (Table 1, model 1) 10,000 times but multiplied each observation for outsourcing by a random number with a specified minimum and maximum limit. We then repeated this five times with different maximum error sizes, the largest of which was 50% (replicated by multiplying each value by a random number between 0.5 and 1.5) - far larger than we would expect to exist in the data. We then plotted the density of the resulting coefficients for outsourcing in each regression.
+
+```{r, echo=FALSE,out.width="95%",fig.pos="H" }
+
+Create_figure_3(MyAnnualDataCCG)
+
+```
+
+## Figure 3: Synthetic random error. Plot shows the density of the coefficient for outsourcing on treatable mortality when running the regression 10,000 times with five different levels of random error.
+
+Figure 3 shows that if the outsourcing data contains random error up to 10% of the magnitude of the values, we could expect our effect size of outsourcing on treatable mortality to vary from between 0.0030 to 0.0045. As the random error increases in magnitude we see an expected shift in the modal coefficient size towards zero and a wider distribution of coefficient sizes. However, even given very large levels of random error in the data, our finding is still comparable - in that the association between outsourcing and treatable mortality is almost always positive and trends close to our observed coefficient size of 0.004 and, in the majority of cases, is statistically significant. 
+
+In the supplementary material (S.11.-S.12, pp.16-18) we display how figure 2 combines with a specification curve. All possible specifications report comparable findings with positive associations between outsourcing and treatable mortality. Finally, we run the linear fixed effects regression (Table 1, model 1) 173 times, removing a different individual CCG on each loop (see supplementary material S.10, pp.14-15). This was done to check whether any single CCG was primarily driving our overall result. We find that all regressions return a statistically significant, positive result we can therefore be confident that our result is not considerably biased by any single CCG.
+
+
+# Discussion
+
+The levels of outsourcing to for-profit healthcare providers from England’s NHS commissioners has increased considerably since 2013, raising to over 6% of the total reported expenditure in 2020 - £323m out of £4,999m went to for-profit companies in the first three months of 2020. Using a novel dataset based on procurement contracts for 173 CCGs, we find that increases in outsourcing from CCGs in England are associated with a worsening in the quality of healthcare services, measured by higher mortality rates.
+
+Since reforms to England’s NHS in 2012, some measures of healthcare quality, as well as population health, have been worsening [27]. Many have attributed these phenomena to austerity policies, leaving public services underfunded and having direct consequences on the social determinants of health through welfare cuts[10, 11]. We suggest in this paper that outsourcing to for-profit companies is another way that the reforms of the post-financial crisis era have impacted NHS service quality and mortality rates. However, with outsourcing being used as a mechanism for further austerity in some policy contexts, the relationship in healthcare deserves further attention[28].
+
+The ‘marketisation’ of healthcare services is underpinned by beliefs that openness, competition and management autonomy can improve the efficiency and performance of state-funded services[29]. For decades these principles have dictated the organisation of England’s NHS[30]. However, our results find that these processes, manifesting in the outsourcing of healthcare provision, are not associated with improvements in service provision, and almost certainly have reduced quality, leading to increased deaths among patients. 
+
+There are two primary ways that outsourcing to for-profit providers may lead to increased mortality. First, the private providers receiving NHS contracts could simply be delivering worse quality care resulting in more health complications and deaths. For-profit providers tend to cut costs more than public providers - this can be through staff numbers and qualification levels or adherence to guidelines for correct medical processes[17]. However, recent evidence finds no significant difference in the rate of deaths from surgeries in private and public hospitals in England - even if selection effects make this estimation difficult [31]. The delivery of NHS surgeries by for-profit companies may be conducted under more stringent conditions than when done by NHS providers, however evidence is yet to find differences in health outcomes for those treated in NHS and for-profit providers.
+
+A second reason for the increased mortality rates could be that outsourcing leads to intensified pressure across the whole health system. Outsourcing can increase pressure on the wider system if profitable patients and services are ‘cream-skimmed’ by for-profit providers creating a concentration of difficult treatments in public providers - as was witnessed in the NHS outsourcing to private hospitals during the 2000s [16]. Equally, increased competition for contracts could result in healthcare providers prioritising easily quantified outcomes such as waiting times at the expense of quality of care resulting in higher patient mortality - as identified in the NHS after the pro-market reforms during the 1990s [32]. The fact that we focus on a measure of healthcare service performance and that we found no association when using a measure of mortality from causes that are treated by public health interventions, suggests the overarching explanation is an aggregate decline in quality of care. At the same time, more research is needed, to unpack the precise mechanisms of worsening care in England since 2013, including assessing how private providers contribute to quality and safety data and systems of accountability. Another future avenue of research is the impact of outsourcing on health inequalities, perhaps at the neighbourhood level and thinking qualitatively about healthcare access.
+
+These results have implications for the NHS privatisation debate, suggesting that for-profit provision of care services could be associated with worse population outcomes.  In the case of England’s NHS, our research raises doubts that the current extent of private sector use is optimal for the quality of care and suggests that further increases in for-profit provision would be a mistake. However, given the trends in the data, a change in direction and expansion in public sector provision seems unlikely without significant political intervention.
+
+The findings of this research are timely as new commissioning structures (Integrated Care Boards) are about to replace CCGs entirely and, as in 2013, redraw the NHS’ market. This creates a moment where once again the role of the private sector within England’s NHS must be scrutinised. This historical analysis is also important given that, with only 42 Integrated Care Boards replacing CCGs, such an analysis will not be possible in the future as local variation and accountability will be lost. To the authors’ knowledge, this is the first rigorous assessment of the relationship between private-sector outsourcing and the quality of healthcare provision following the 2012 reforms to England’s National Health Service. It indicates that these reforms, encouraging private sector provision, have coincided with a worsening in the quality of care and additional treatable deaths. 
+
+Limitations of this study include the length of time the data is available for, given the creation of CCGs in 2013, considerable mergers made at the beginning of 2020 and no legal requirement for their predecessors to publish expenditure data, this limits our ability to measure outsourcing before 2013 precisely or conduct before/after analyses. The associational nature of our findings cannot rule out the possibility of residual confounding, consequently our findings should not be interpreted as necessarily evidencing a causal relationship between outsourcing and mortality rates. The expenditure data does not contain information on the specific services provided by the supplier, as such there remains further research needed to distinguish if some acute services are primarily causing the relationship we observe.
+
+Since the passing of the 2012 Health and Social Care Act in England, for-profit companies are providing an increasingly large share of NHS services. Concerns about the quality of care provided by for-profit companies appear to be justified as outsourcing is associated with higher rates of mortality from causes which could be treated by effective medical interventions.
+
+# Data Sharing Statement
+
+The extensive code library which accompanies this work can be found at https://github.com/BenGoodair/CCG-Outsourcing. We used R [Version 4.1.1] for all our analyses. The data that support the findings of this study are all publicly available, replication materials all available at https://github.com/BenGoodair/CCG-Outsourcing. Locations of raw data is detailed in supplementary material S.23, p.30 CCG expenditure data available from Rahal and Mohan (2022)[19].
+
+# Contributor Statement
+
+BG and AR conceived the study idea and contributed to research design. BG and AR accessed and verified the data. BG conducted data cleaning and data interpretation. BG conducted the literature review, analysed data, and wrote the original draft of the manuscript. AR provided supervision, oversaw analysis plan and edited the paper.
+
+# Declaration of interests
+We declare no competing interests.
+
+
+\newpage
+
+# References
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+[1] Goodwin N, Pinch S. Explaining Geographical Variations in the Contracting out of NHS Hospital Ancillary Services: A Contextual Approach. Environment and Planning A: Economy and Space. 1995;27(9):1397-1418. doi:10.1068/a271397
+
+[2] Elkomy, S., Cookson, G. and Jones, S., Cheap and Dirty: The Effect of Contracting Out Cleaning on Efficiency and Effectiveness. Public Admin Rev. 2019; 79: 193-202. https://doi.org/10.1111/puar.13031
+
+[3] Gingrich J R. Making Markets in the Welfare State: The Politics of Varying Market Reforms. Cambridge; New York: Cambridge UP, 2011. 
+
+[4] Krachler N, Greer I. When does marketisation lead to privatisation? profit-making in english health services after the 2012 health and social care act, Social Science & Medicine. 2015; 124: 215–223. doi:https://doi.org/10.1016/j.socscimed.2014.11.045. URL http://www.sciencedirect.com/science/article/pii/ S0277953614007771 
+
+[5] Sanderson M, Allen P, Osipovic D. The regulation of competition in the national health service (nhs): what difference has the health and social care act 2012 made?, Health Economics, Policy and Law. 2017; 12 (1): 1–19. doi:10.1017/S1744133116000116. 
+
+[6] Pollock AM, Price D, Roderick P, Treuherz T, McCoy D, McKee M, Reynolds L. How the health and social care bill 2011 would end entitlement to comprehensive health care in england, The Lancet. 2012; 379 (9814): 387–389. doi:10.1016/S0140-6736(12)60119-6. 
+
+[7] The Nuffield Trust, Mortality rates. Available from: https://www.nuffieldtrust.org.uk/resource/mortality-rates [accessed 14/04/2022]
+
+[8] Honeyford K, Greaves F, Aylin P, Bottle A. Secondary analysis of hospital patient experience scores across england’s national health service - how much has improved since 2005?, PLoS One. 2017; 12 (10): e0187012. doi:10.1371/journal.pone.0187012.
+
+[9] Green MA, Dorling D, Minton J, Pickett KE. Could the rise in mortality rates since 2015 be explained by changes in the number of delayed discharges of nhs patients?,  Journal of Epidemiology and Community Health. 2017; 71 (11): 1068. doi:10.1136/jech-2017-209403. 
+
+[10] Watkins J, Wulaningsih W, Da Zhou C, Marshall DC, Sylianteng GDC, Dela Rosa PG, Miguel VA, Raine R, King LP, Maruthappu M. Effects of health and social care spending constraints on mortality in england: a time trend analysis, BMJ Open. 2017; 7 (11): e017722. doi:10.1136/bmjopen-2017-017722. 
+
+[11] Alexiou A, Fahy K, Mason K, Bennett D, Brown H, Bambra C, Taylor-Robinson D, Barr B. Local government funding and life expectancy in england: a longitudinal ecological study, The Lancet Public Health. 2021; 6 (9): e641–e647. doi:https://doi.org/10.1016/S2468-2667(21)00110-9. 
+
+[12] Pollock AM, Price D, The final frontier: The uk’s new coalition government turns the english national health service over to the global health care market, Health Sociology Review. 2011; 20 (3): 294–305. doi:10.5172/hesr.2011.20.3.294. 
+
+[13] Quercioli C, Messina G, Basu S, McKee M, Nante N, Stuckler D, The effect of healthcare delivery privatisation on avoidable mortality: longitudinal cross-regional results from italy, 1993–2003, J Epidemiol Community Health. 2013; 67 (2): 132–138. doi:10.1136/jech-2011- 200640. 
+
+[14] Toffolutti V, Reeves A, McKee M, Stuckler D, Outsourcing cleaning services increases mrsa incidence: Evidence from 126 english acute trusts, Social Science & Medicine. 2017; 174: 64. doi:10.1016/j.socscimed.2016.12.015. 
+
+[15] Kunz J, Propper C, Staub K, Winkelmann R. Assessing the quality of public services: Does hospital competition crowd out the for-profit quality gap?, CEPR Discussion Paper No. DP15045. 2020. URL https://ssrn.com/abstract=3661388 [accessed 14/04/2022].
+
+[16] Beckert W, Kelly E. Divided by choice? for-profit providers, patient choice and mechanisms of patient sorting in the english national health service, Health economics. 2021; 30 (4): 820–839. doi:10.1002/hec.4223. 
+
+[17] Chard J, Kuczawski M, Black N, van der Meulen J. Outcomes of elective surgery undertaken in independent sector treatment centres and nhs providers in england: audit of patient outcomes in surgery, BMJ. 2011; 343: d6404. doi:10.1136/bmj.d6404.
+
+[18] Pérotin V, Zamora B, Reeves R, Bartlett W, Allen P. Does hospital ownership affect patient experience? an investigation into public–private sector differences in england, Journal of Health Economics.2013; 32 (3): 633–646. doi:https://doi.org/10.1016/j.jhealeco.2013.03.003. 
+
+[19] Rahal C, Mohan J. The role of the third sector in public health service provision: Evidence from 25,338 heterogeneous procurement datasets. 2022. doi:https://doi.org/10.31235/osf.io/t4x52. 
+
+[20] Rahal, C. The Keys to Unlocking Public Payments Data, Kyklos. 2018; 71: 310– 337. doi: 10.1111/kykl.12171.
+
+[21] Rahal C. Tools for Transparency in Central Government Spending, Int J Popul Data Sci. 2019; 4(1):1092. doi: 10.23889/ijpds.v4i1.1092.
+
+[22] ONS, Avoidable mortality in the UK: 2019. 2021. Available at: https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/bulletins/avoidablemortalityinenglandandwales/2019 [accessed 14/04/2022].
+
+[23] Imai K, Ratkovic M. Covariate balancing propensity score, Journal of the Royal Statistical Society: Series B (Statistical Methodology). 2014; 76 (1): 243–263. doi:https://doi.org/10.1111/rssb.12027. 
+
+[24] Pustejovsky JE, Tipton E. Small-sample methods for cluster-robust variance estimation and hypothesis testing in fixed effects models, Journal of Business & Economic Statistics. 2018; 36 (4): 672–683. doi: 10.1080/07350015.2016.1247004. 
+
+[25] The King’s Fund, Is the nhs being privatised? 2021. Available at: https://www.kingsfund.org.uk/publications/articles/big-election-questions-nhs-privatised  [accessed 14/04/2022].
+
+[26] ONS, Uk standard industrial classification (sic) hierarchy. 2021. Available at: https://onsdigital.github.io/dp-classification-tools/standard-industrial-classification/ONS_SIC_hierarchy_view.html [accessed 14/04/2022].
+
+[27] Fransham M, Dorling D. Have mortality improvements stalled in england?, BMJ. 2017; 357: j1946. doi:10.1136/bmj.j1946. 
+
+[28] Bach-Mortensen A M,  Barlow J. Outsourced Austerity or Improved Services? A Systematic Review and Thematic Synthesis of the Experiences of Social Care Providers and Commissioners in Quasi-markets. Social Science & Medicine. 2021; 276 (1982): 113844. doi:10.1016/j.socscimed.2021.113844.
+
+[29] Krachler N, Greer I, Umney C. Can public healthcare afford marketization? market principles, mechanisms, and effects in five health systems, Public Administration Review. 2021; doi:10.1111/puar.13388. 
+
+[30] Pollock AM, Nhs plc: the privatisation of our health care, London: Verso, 2004. 
+
+[31] Crothers H, Liaqat A, Reeves K, Watson SI, Gallier S, Khunti K, Bird P, Lilford R. Outcomes for surgical procedures funded by the english health service but carried out in public versus independent hospitals: a database study, BMJ Qual Saf. 2021: doi:10.1136/bmjqs2021-013522. 
+
+[32] Propper C, Burgess S, Gossage D. Competition and quality: Evidence from the nhs internal market 1991–9, The Economic Journal. 2008; 118 (525): 138–170. doi:10.1111/j.1468-0297.2007.02107.x. 
+
+
