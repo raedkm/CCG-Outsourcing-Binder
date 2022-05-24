@@ -6,7 +6,7 @@ Welcome to my Binder repository for the upcoming paper in the Lancet Public Heal
 
 To launch the Binder application click the Binder button at the top of this README file or click the link [here](https://mybinder.org/v2/gh/BenGoodair/CCG-Outsourcing-Binder/HEAD).
 
-After 15 minutes of preparing the many packages used in the paper's analysis a Jupyter launcher should load. If you have R downloaded on your device you should be able to open an RStudio launcher.
+After 15 minutes of preparing the many packages used in the paper's analysis a Jupyterlab interface should load. If you have R downloaded on your device you should be able to open an RStudio launcher.
 
 Then, open the Rmd file for the paper from within the RStudio interface by clicking on the 'R' folder in the files panel and clicking on the file 'Binder_outsourcing_mortality.Rmd'.
 
