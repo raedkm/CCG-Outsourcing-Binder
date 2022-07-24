@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+Input/
+Input_archive/
+.7z
+Data.7z
+Output_Data/
