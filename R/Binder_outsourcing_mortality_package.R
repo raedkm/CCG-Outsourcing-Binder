@@ -1,9 +1,13 @@
 #NHS Outsourcing and Mortality R Package
+# 
 
 Download_CCG_payments <- function(){myDataCCG <- download_zenodo(doi="10.5281/zenodo.5054717", path = ".", parallel = T, quiet = T)
 unzip("NHSSpend-v.1.0.2.zip")
 unzip("crahal-NHSSpend-1846777/data/data_final/payments_ccg_final.zip")
 myDataCCG <- read.csv("payments_ccg_final.csv")}
+
+
+Download_CCG_payments <- function(){myDataCCG <- read.csv("Input/payments_ccg_final.csv")}
 
 
 Create_Annual_CCG_dataset <- function(myDataCCG){
